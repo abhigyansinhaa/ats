@@ -1,0 +1,11 @@
+package com.ats.dto;
+
+import com.ats.entity.ApplicationStatus;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
+@Data
+public class ApplicationStatusUpdateRequest {
+    @NotNull
+    private ApplicationStatus status;
+}

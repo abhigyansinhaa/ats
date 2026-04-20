@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: ats-backend
+  datasource:
+    url: jdbc:mysql://localhost:3306/ats?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: 8080
+
+ats:
+  jwt:
+    # Override with env ATS_JWT_SECRET in production (any string; SHA-256 derived signing key)
+    secret: ${ATS_JWT_SECRET:change-me-ats-jwt-dev-secret}
+    expiration-ms: 86400000
+  upload-dir: ${ATS_UPLOAD_DIR:./uploads/resumes}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    org.springframework.security: INFO
