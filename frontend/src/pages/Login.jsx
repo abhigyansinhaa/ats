@@ -29,10 +29,7 @@ export default function Login() {
   return (
     <div className="max-w-md mx-auto">
       <h1 className="text-2xl font-bold text-brand-900">Log in</h1>
-      <p className="text-slate-600 text-sm mt-1">
-        Demo: <code className="bg-slate-100 px-1 rounded">admin@ats.local</code> /{' '}
-        <code className="bg-slate-100 px-1 rounded">password123</code>
-      </p>
+      <p className="text-slate-600 text-sm mt-1">Sign in with your work email and password.</p>
       <form onSubmit={handleSubmit} className="mt-6 space-y-4">
         {error && (
           <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">

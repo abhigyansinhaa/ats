@@ -3,6 +3,7 @@ backend/target/
 backend/.idea/
 backend/*.iml
 backend/uploads/
+backend/src/main/resources/application-local.yml
 
 # Frontend
 frontend/node_modules/
