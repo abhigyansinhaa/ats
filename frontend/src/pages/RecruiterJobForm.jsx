@@ -42,49 +42,59 @@ export default function RecruiterJobForm() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold text-brand-900">{isEdit ? 'Edit job' : 'New job'}</h1>
-      {error && <p className="mt-2 text-red-600">{error}</p>}
-      <form onSubmit={submit} className="mt-6 space-y-4">
+      <p className="font-mono text-xs uppercase tracking-widest text-brand-400">Job</p>
+      <h1 className="page-title mt-1">{isEdit ? 'Edit job' : 'New job'}</h1>
+      {error && <p className="mt-4 alert-error">{error}</p>}
+      <form onSubmit={submit} className="mt-6 panel space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-700">Title</label>
+          <label className="label" htmlFor="job-title">
+            Title
+          </label>
           <input
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+            id="job-title"
+            className="input-field"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700">Company</label>
+          <label className="label" htmlFor="job-company">
+            Company
+          </label>
           <input
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+            id="job-company"
+            className="input-field"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
             required
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700">Location</label>
+          <label className="label" htmlFor="job-location">
+            Location
+          </label>
           <input
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
+            id="job-location"
+            className="input-field"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             required
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700">Description</label>
+          <label className="label" htmlFor="job-description">
+            Description
+          </label>
           <textarea
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 min-h-[160px]"
+            id="job-description"
+            className="input-field min-h-[160px] resize-y"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
           />
         </div>
-        <button
-          type="submit"
-          className="px-6 py-2.5 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700"
-        >
+        <button type="submit" className="btn-primary">
           {isEdit ? 'Save changes' : 'Publish job'}
         </button>
       </form>

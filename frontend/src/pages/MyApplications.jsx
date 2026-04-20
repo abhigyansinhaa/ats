@@ -13,29 +13,31 @@ export default function MyApplications() {
       .catch((e) => setError(e.response?.data?.error || e.message))
   }, [])
 
-  if (error) return <p className="text-red-600">{error}</p>
+  if (error) return <p className="alert-error inline-block">{error}</p>
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-brand-900">My applications</h1>
-      <ul className="mt-6 space-y-3">
+      <p className="font-mono text-xs uppercase tracking-widest text-brand-400">Candidate</p>
+      <h1 className="page-title mt-1">My applications</h1>
+      <ul className="mt-8 space-y-3">
         {items.length === 0 ? (
-          <li className="text-slate-500">No applications yet.</li>
+          <li className="text-fg-muted">No applications yet.</li>
         ) : (
           items.map((a) => (
             <li
               key={a.id}
-              className="border border-slate-200 rounded-lg p-4 bg-white flex flex-wrap justify-between gap-2"
+              className="panel flex flex-wrap justify-between gap-3 items-center"
             >
               <div>
-                <Link to={`/jobs/${a.jobId}`} className="font-medium text-brand-900 hover:underline">
+                <Link
+                  to={`/jobs/${a.jobId}`}
+                  className="font-display font-semibold text-fg hover:text-brand-400 transition-colors"
+                >
                   {a.jobTitle}
                 </Link>
-                <p className="text-sm text-slate-600">{a.company}</p>
+                <p className="text-sm text-fg-muted font-mono mt-0.5">{a.company}</p>
               </div>
-              <span className="text-sm font-medium px-2 py-1 rounded bg-slate-100 text-slate-800">
-                {a.status}
-              </span>
+              <span className="badge-status">{a.status}</span>
             </li>
           ))
         )}

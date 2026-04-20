@@ -6,7 +6,13 @@ export default function ProtectedRoute({ children, roles }) {
 
   if (loading) {
     return (
-      <div className="flex justify-center py-20 text-slate-500">Loading…</div>
+      <div className="flex flex-col items-center justify-center gap-3 py-24 text-fg-muted">
+        <span
+          className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-brand-400"
+          aria-hidden
+        />
+        <span className="text-sm font-mono">Loading…</span>
+      </div>
     )
   }
 

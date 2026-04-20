@@ -16,9 +16,21 @@ import ProtectedRoute from './routes/ProtectedRoute.jsx'
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col overflow-x-hidden">
+      <div
+        className="pointer-events-none fixed inset-0 -z-10 bg-surface"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none fixed -left-32 top-20 h-96 w-96 rounded-full bg-brand-600/5 blur-3xl"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none fixed -right-24 bottom-0 h-[28rem] w-[28rem] rounded-full bg-brand-400/5 blur-3xl"
+        aria-hidden
+      />
       <Navbar />
-      <main className="flex-1 max-w-6xl mx-auto w-full px-4 py-8">
+      <main className="relative flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

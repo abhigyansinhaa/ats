@@ -2,17 +2,28 @@ import { Link, NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext.jsx'
 
 const linkClass = ({ isActive }) =>
-  `px-3 py-2 rounded-md text-sm font-medium ${
-    isActive ? 'bg-brand-700 text-white' : 'text-slate-700 hover:bg-slate-100'
+  `px-3 py-2 rounded-full text-sm font-medium transition ${
+    isActive
+      ? 'bg-raised text-fg border border-border shadow-panel'
+      : 'text-fg-muted hover:text-fg hover:bg-raised/60'
   }`
 
 export default function Navbar() {
   const { user, logout } = useAuth()
 
   return (
-    <header className="border-b border-slate-200 bg-white shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 flex flex-wrap items-center justify-between gap-4 py-3">
-        <Link to="/" className="text-xl font-bold text-brand-900">
+    <header className="sticky top-0 z-50 border-b border-border bg-surface/80 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-4 py-3">
+        <Link
+          to="/"
+          className="group flex items-center gap-2 font-display text-lg font-bold tracking-tight text-fg"
+        >
+          <span
+            className="font-mono text-brand-400 text-sm opacity-90 group-hover:opacity-100"
+            aria-hidden
+          >
+            &gt;_
+          </span>
           ATS
         </Link>
         <nav className="flex flex-wrap items-center gap-1">
@@ -43,29 +54,20 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           {user ? (
             <>
-              <span className="text-sm text-slate-600 hidden sm:inline">
-                {user.name} <span className="text-slate-400">({user.role})</span>
+              <span className="text-xs font-mono text-fg-muted hidden sm:inline max-w-[12rem] truncate">
+                {user.name}{' '}
+                <span className="text-muted">· {user.role}</span>
               </span>
-              <button
-                type="button"
-                onClick={logout}
-                className="text-sm px-3 py-1.5 rounded-md border border-slate-300 hover:bg-slate-50"
-              >
+              <button type="button" onClick={logout} className="btn-secondary-sm">
                 Log out
               </button>
             </>
           ) : (
             <>
-              <Link
-                to="/login"
-                className="text-sm px-3 py-1.5 rounded-md border border-slate-300 hover:bg-slate-50"
-              >
+              <Link to="/login" className="btn-secondary-sm">
                 Log in
               </Link>
-              <Link
-                to="/register"
-                className="text-sm px-3 py-1.5 rounded-md bg-brand-600 text-white hover:bg-brand-700"
-              >
+              <Link to="/register" className="btn-primary-sm">
                 Register
               </Link>
             </>

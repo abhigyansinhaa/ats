@@ -31,57 +31,61 @@ export default function AdminDashboard() {
     }
   }
 
-  if (error && !data) return <p className="text-red-600">{error}</p>
-  if (!data) return <p className="text-slate-500">Loading…</p>
+  if (error && !data) return <p className="alert-error inline-block">{error}</p>
+  if (!data) {
+    return (
+      <div className="flex items-center gap-3 text-fg-muted py-12">
+        <span
+          className="h-6 w-6 animate-spin rounded-full border-2 border-border border-t-brand-400"
+          aria-hidden
+        />
+        <span className="font-mono text-sm">Loading…</span>
+      </div>
+    )
+  }
+
+  const statCards = [
+    { label: 'Users', value: data.totalUsers },
+    { label: 'Jobs', value: data.totalJobs },
+    { label: 'Applications', value: data.totalApplications },
+    { label: 'Candidates', value: data.candidates },
+    { label: 'Recruiters', value: data.recruiters },
+    { label: 'Admins', value: data.admins },
+  ]
 
   return (
-    <div className="max-w-3xl mx-auto space-y-10">
+    <div className="max-w-3xl mx-auto space-y-12">
       <div>
-        <h1 className="text-2xl font-bold text-brand-900">Admin dashboard</h1>
-        {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
-        <dl className="mt-6 grid grid-cols-2 md:grid-cols-3 gap-4">
-          <div className="border border-slate-200 rounded-lg p-4 bg-white">
-            <dt className="text-sm text-slate-500">Users</dt>
-            <dd className="text-2xl font-semibold">{data.totalUsers}</dd>
-          </div>
-          <div className="border border-slate-200 rounded-lg p-4 bg-white">
-            <dt className="text-sm text-slate-500">Jobs</dt>
-            <dd className="text-2xl font-semibold">{data.totalJobs}</dd>
-          </div>
-          <div className="border border-slate-200 rounded-lg p-4 bg-white">
-            <dt className="text-sm text-slate-500">Applications</dt>
-            <dd className="text-2xl font-semibold">{data.totalApplications}</dd>
-          </div>
-          <div className="border border-slate-200 rounded-lg p-4 bg-white">
-            <dt className="text-sm text-slate-500">Candidates</dt>
-            <dd className="text-2xl font-semibold">{data.candidates}</dd>
-          </div>
-          <div className="border border-slate-200 rounded-lg p-4 bg-white">
-            <dt className="text-sm text-slate-500">Recruiters</dt>
-            <dd className="text-2xl font-semibold">{data.recruiters}</dd>
-          </div>
-          <div className="border border-slate-200 rounded-lg p-4 bg-white">
-            <dt className="text-sm text-slate-500">Admins</dt>
-            <dd className="text-2xl font-semibold">{data.admins}</dd>
-          </div>
+        <p className="font-mono text-xs uppercase tracking-widest text-brand-400">Admin</p>
+        <h1 className="page-title mt-1">Dashboard</h1>
+        {error && <p className="mt-3 alert-error">{error}</p>}
+        <dl className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-3">
+          {statCards.map((s) => (
+            <div key={s.label} className="panel-muted">
+              <dt className="text-xs font-mono text-muted uppercase tracking-wide">{s.label}</dt>
+              <dd className="mt-2 font-display text-2xl font-semibold text-fg">{s.value}</dd>
+            </div>
+          ))}
         </dl>
-        <h2 className="text-lg font-semibold mt-8">Applications by status</h2>
-        <ul className="mt-2 text-sm text-slate-700">
+        <h2 className="font-display text-lg font-semibold mt-10 text-fg">Applications by status</h2>
+        <ul className="mt-3 text-sm text-fg-muted font-mono space-y-1">
           {Object.entries(data.applicationsByStatus || {}).map(([k, v]) => (
             <li key={k}>
-              {k}: {v}
+              <span className="text-brand-400">{k}</span>: {v}
             </li>
           ))}
         </ul>
       </div>
 
-      <div className="border-t border-slate-200 pt-8">
-        <h2 className="text-lg font-semibold text-brand-900">Create user</h2>
-        <p className="text-sm text-slate-600 mt-1">Create recruiter or admin accounts (or additional candidates).</p>
-        {msg && <p className="text-green-700 text-sm mt-2">{msg}</p>}
-        <form onSubmit={createUser} className="mt-4 space-y-3 max-w-md">
+      <div className="border-t border-border pt-10">
+        <h2 className="font-display text-lg font-semibold text-fg">Create user</h2>
+        <p className="text-sm text-fg-muted mt-1">
+          Create recruiter or admin accounts (or additional candidates).
+        </p>
+        {msg && <p className="alert-success mt-4">{msg}</p>}
+        <form onSubmit={createUser} className="mt-6 panel space-y-3 max-w-md">
           <input
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="input-field"
             placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -89,7 +93,7 @@ export default function AdminDashboard() {
           />
           <input
             type="email"
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="input-field"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -97,26 +101,19 @@ export default function AdminDashboard() {
           />
           <input
             type="password"
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
+            className="input-field"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             minLength={6}
           />
-          <select
-            className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-          >
+          <select className="select-field w-full" value={role} onChange={(e) => setRole(e.target.value)}>
             <option value="RECRUITER">RECRUITER</option>
             <option value="ADMIN">ADMIN</option>
             <option value="CANDIDATE">CANDIDATE</option>
           </select>
-          <button
-            type="submit"
-            className="px-4 py-2 rounded-lg bg-slate-900 text-white text-sm hover:bg-slate-800"
-          >
+          <button type="submit" className="btn-dark w-full justify-center sm:w-auto">
             Create user
           </button>
         </form>

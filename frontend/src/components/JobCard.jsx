@@ -2,21 +2,18 @@ import { Link } from 'react-router-dom'
 
 export default function JobCard({ job }) {
   return (
-    <article className="border border-slate-200 rounded-lg p-5 bg-white shadow-sm hover:shadow-md transition">
-      <h2 className="text-lg font-semibold text-brand-900">{job.title}</h2>
-      <p className="text-slate-600 text-sm mt-1">
+    <article className="group panel p-5 transition hover:border-brand-500/25 hover:shadow-glow">
+      <h2 className="font-display text-lg font-semibold text-fg">{job.title}</h2>
+      <p className="text-fg-muted text-sm mt-1 font-mono">
         {job.company} · {job.location}
       </p>
-      <p className="text-slate-500 text-sm mt-2 line-clamp-2">{job.description}</p>
-      <div className="mt-4 flex justify-between items-center">
-        <span className="text-xs text-slate-400">
+      <p className="text-muted text-sm mt-2 line-clamp-2">{job.description}</p>
+      <div className="mt-4 flex justify-between items-center gap-3">
+        <span className="text-xs font-mono text-muted">
           Posted by {job.postedByName || '—'}
         </span>
-        <Link
-          to={`/jobs/${job.id}`}
-          className="text-sm font-medium text-brand-700 hover:underline"
-        >
-          View details
+        <Link to={`/jobs/${job.id}`} className="link-brand text-sm">
+          View details →
         </Link>
       </div>
     </article>

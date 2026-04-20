@@ -1,6 +1,7 @@
 spring:
   application:
     name: ats-backend
+  # Runtime DB: MySQL 8. Access is via Spring Data JPA (Hibernate); the MySQL JDBC driver is used under the hood.
   datasource:
     url: ${DB_URL:jdbc:mysql://localhost:3306/ats?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC}
     username: ${DB_USERNAME:root}
@@ -8,6 +9,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
+      # Schema is evolved from entity mappings (see com.ats.entity). Use migrations in production if you need versioned DDL.
       ddl-auto: update
     show-sql: false
     properties:

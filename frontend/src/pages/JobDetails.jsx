@@ -16,34 +16,43 @@ export default function JobDetails() {
       .catch((e) => setError(e.response?.data?.error || e.message))
   }, [id])
 
-  if (error) return <p className="text-red-600">{error}</p>
-  if (!job) return <p className="text-slate-500">Loading…</p>
+  if (error) return <p className="alert-error inline-block">{error}</p>
+  if (!job) {
+    return (
+      <div className="flex items-center gap-3 text-fg-muted py-12">
+        <span
+          className="h-6 w-6 animate-spin rounded-full border-2 border-border border-t-brand-400"
+          aria-hidden
+        />
+        <span className="font-mono text-sm">Loading…</span>
+      </div>
+    )
+  }
 
   return (
     <article className="max-w-3xl">
-      <Link to="/jobs" className="text-sm text-brand-700 hover:underline">
+      <Link to="/jobs" className="link-brand text-sm font-mono">
         ← Back to jobs
       </Link>
-      <h1 className="text-3xl font-bold text-brand-900 mt-4">{job.title}</h1>
-      <p className="text-slate-600 mt-2">
-        {job.company} · {job.location}
-      </p>
-      <div className="mt-6 prose prose-slate max-w-none">
-        <p className="whitespace-pre-wrap">{job.description}</p>
+      <div className="mt-6 panel">
+        <h1 className="font-display text-3xl sm:text-4xl font-bold text-fg tracking-tight">{job.title}</h1>
+        <p className="text-fg-muted mt-3 font-mono text-sm">
+          {job.company} · {job.location}
+        </p>
+        <div className="mt-8 prose-invert-local whitespace-pre-wrap border-t border-border pt-8">
+          {job.description}
+        </div>
       </div>
       {user?.role === 'CANDIDATE' && (
         <div className="mt-8">
-          <Link
-            to={`/apply/${job.id}`}
-            className="inline-flex px-6 py-3 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700"
-          >
+          <Link to={`/apply/${job.id}`} className="btn-primary">
             Apply for this job
           </Link>
         </div>
       )}
       {!user && (
-        <p className="mt-8 text-slate-600">
-          <Link to="/login" className="text-brand-700 font-medium">
+        <p className="mt-8 text-fg-muted text-sm">
+          <Link to="/login" className="link-brand">
             Log in
           </Link>{' '}
           as a candidate to apply.

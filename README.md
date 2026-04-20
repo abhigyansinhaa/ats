@@ -1,6 +1,6 @@
 # Applicant Tracking System (ATS)
 
-Full-stack ATS with **Spring Boot + MySQL** backend and **React + Vite + Tailwind** frontend: JWT auth, role-based access (`ADMIN`, `RECRUITER`, `CANDIDATE`), jobs, applications, interviews, and an admin dashboard.
+Full-stack ATS with **Spring Boot + MySQL + Spring Data JPA (Hibernate)** backend and **React + Vite + Tailwind** frontend: JWT auth, role-based access (`ADMIN`, `RECRUITER`, `CANDIDATE`), jobs, applications, interviews, and an admin dashboard.
 
 ## Prerequisites
 
@@ -10,18 +10,34 @@ Full-stack ATS with **Spring Boot + MySQL** backend and **React + Vite + Tailwin
 
 ## Database
 
+The API uses **MySQL 8** at runtime and **Spring Data JPA** with **Hibernate** for mapping and queries (entities under `backend/src/main/java/com/ats/entity/`, repositories under `com.ats.repository`). The MySQL JDBC driver is used under the hood; you do not configure raw JDBC in application code. Details: [`backend/README.md`](backend/README.md).
+
+### Local MySQL (Docker)
+
+From the repo root:
+
+```bash
+docker compose up -d mysql
+```
+
+This starts MySQL 8 on port **3306** with database `ats` (see [`docker-compose.yml`](docker-compose.yml)), matching the default URL in [`backend/src/main/resources/application.yml`](backend/src/main/resources/application.yml).
+
+### Manual setup
+
 1. Create a database (or rely on `createDatabaseIfNotExist` in the JDBC URL):
 
    ```sql
    CREATE DATABASE ats CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
    ```
 
-2. Set credentials in [`backend/src/main/resources/application.yml`](backend/src/main/resources/application.yml) or override with env:
+2. Set credentials via environment (same names as in `application.yml`) or edit defaults in `application.yml`:
 
-   - `SPRING_DATASOURCE_URL`
-   - `SPRING_DATASOURCE_USERNAME`
-   - `SPRING_DATASOURCE_PASSWORD`
-   - `ATS_JWT_SECRET` (optional; any string—signing key is SHA-256 derived)
+   - `DB_URL` (default `jdbc:mysql://localhost:3306/ats?...`)
+   - `DB_USERNAME` (default `root`)
+   - `DB_PASSWORD` (default `root`)
+   - `ATS_JWT_SECRET` (optional in dev; use a strong secret in production—signing key is SHA-256 derived)
+
+   Spring Boot also accepts `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, and `SPRING_DATASOURCE_PASSWORD` for `spring.datasource.*` if you prefer standard Spring env names.
 
 ## Backend
 
@@ -83,7 +99,7 @@ Open `http://localhost:5173`. The dev server proxies `/api` to `http://localhost
 
 ## Project layout
 
-- [`backend/`](backend/) — Spring Boot, JPA entities, JWT security, REST controllers
+- [`backend/`](backend/) — Spring Boot, Spring Data JPA (Hibernate), MySQL, JWT security, REST controllers
 - [`frontend/`](frontend/) — React Router, Axios, Tailwind UI
 
 ## License

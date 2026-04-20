@@ -28,48 +28,49 @@ export default function Login() {
 
   return (
     <div className="max-w-md mx-auto">
-      <h1 className="text-2xl font-bold text-brand-900">Log in</h1>
-      <p className="text-slate-600 text-sm mt-1">Sign in with your work email and password.</p>
-      <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-        {error && (
-          <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
-            {error}
+      <div className="panel">
+        <p className="font-mono text-xs uppercase tracking-widest text-brand-400">Welcome back</p>
+        <h1 className="page-title mt-2">Log in</h1>
+        <p className="text-fg-muted text-sm mt-1">Sign in with your work email and password.</p>
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          {error && <div className="alert-error">{error}</div>}
+          <div>
+            <label className="label" htmlFor="login-email">
+              Email
+            </label>
+            <input
+              id="login-email"
+              type="email"
+              required
+              className="input-field"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
-        )}
-        <div>
-          <label className="block text-sm font-medium text-slate-700">Email</label>
-          <input
-            type="email"
-            required
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-slate-700">Password</label>
-          <input
-            type="password"
-            required
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full py-2.5 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 disabled:opacity-50"
-        >
-          {submitting ? 'Signing in…' : 'Sign in'}
-        </button>
-      </form>
-      <p className="mt-4 text-sm text-slate-600">
-        No account?{' '}
-        <Link to="/register" className="text-brand-700 font-medium">
-          Register
-        </Link>
-      </p>
+          <div>
+            <label className="label" htmlFor="login-password">
+              Password
+            </label>
+            <input
+              id="login-password"
+              type="password"
+              required
+              className="input-field"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button type="submit" disabled={submitting} className="btn-primary w-full">
+            {submitting ? 'Signing in…' : 'Sign in'}
+          </button>
+        </form>
+        <p className="mt-6 text-sm text-fg-muted">
+          No account?{' '}
+          <Link to="/register" className="link-brand">
+            Register
+          </Link>
+        </p>
+      </div>
     </div>
   )
 }

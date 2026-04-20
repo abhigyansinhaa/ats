@@ -34,61 +34,65 @@ export default function Register() {
 
   return (
     <div className="max-w-md mx-auto">
-      <h1 className="text-2xl font-bold text-brand-900">Register as candidate</h1>
-      <p className="text-slate-600 text-sm mt-1">
-        Recruiter and admin accounts are created by an administrator.
-      </p>
-      <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-        {error && (
-          <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">
-            {error}
+      <div className="panel">
+        <p className="font-mono text-xs uppercase tracking-widest text-brand-400">Candidate</p>
+        <h1 className="page-title mt-2">Register</h1>
+        <p className="text-fg-muted text-sm mt-1">
+          Recruiter and admin accounts are created by an administrator.
+        </p>
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          {error && <div className="alert-error">{error}</div>}
+          <div>
+            <label className="label" htmlFor="reg-name">
+              Name
+            </label>
+            <input
+              id="reg-name"
+              type="text"
+              required
+              className="input-field"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </div>
-        )}
-        <div>
-          <label className="block text-sm font-medium text-slate-700">Name</label>
-          <input
-            type="text"
-            required
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-slate-700">Email</label>
-          <input
-            type="email"
-            required
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-slate-700">Password (min 6)</label>
-          <input
-            type="password"
-            required
-            minLength={6}
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <button
-          type="submit"
-          disabled={submitting}
-          className="w-full py-2.5 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 disabled:opacity-50"
-        >
-          {submitting ? 'Creating account…' : 'Create account'}
-        </button>
-      </form>
-      <p className="mt-4 text-sm text-slate-600">
-        Already have an account?{' '}
-        <Link to="/login" className="text-brand-700 font-medium">
-          Log in
-        </Link>
-      </p>
+          <div>
+            <label className="label" htmlFor="reg-email">
+              Email
+            </label>
+            <input
+              id="reg-email"
+              type="email"
+              required
+              className="input-field"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="label" htmlFor="reg-password">
+              Password (min 6)
+            </label>
+            <input
+              id="reg-password"
+              type="password"
+              required
+              minLength={6}
+              className="input-field"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <button type="submit" disabled={submitting} className="btn-primary w-full">
+            {submitting ? 'Creating account…' : 'Create account'}
+          </button>
+        </form>
+        <p className="mt-6 text-sm text-fg-muted">
+          Already have an account?{' '}
+          <Link to="/login" className="link-brand">
+            Log in
+          </Link>
+        </p>
+      </div>
     </div>
   )
 }

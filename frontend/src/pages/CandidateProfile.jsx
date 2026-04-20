@@ -50,42 +50,61 @@ export default function CandidateProfile() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold text-brand-900">Candidate profile</h1>
-      {error && <p className="mt-2 text-red-600">{error}</p>}
-      {message && <p className="mt-2 text-green-700">{message}</p>}
-      <form onSubmit={save} className="mt-6 space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-slate-700">Skills</label>
-          <textarea
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 min-h-[100px]"
-            value={skills}
-            onChange={(e) => setSkills(e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-slate-700">Experience</label>
-          <textarea
-            className="mt-1 w-full rounded-md border border-slate-300 px-3 py-2 min-h-[100px]"
-            value={experience}
-            onChange={(e) => setExperience(e.target.value)}
-          />
-        </div>
-        <button
-          type="submit"
-          className="px-4 py-2 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700"
-        >
-          Save profile
-        </button>
-      </form>
-      <div className="mt-8 border-t border-slate-200 pt-6">
-        <label className="block text-sm font-medium text-slate-700">Resume</label>
+    <div className="max-w-2xl mx-auto space-y-6">
+      <div>
+        <p className="font-mono text-xs uppercase tracking-widest text-brand-400">Profile</p>
+        <h1 className="page-title mt-1">Candidate profile</h1>
+      </div>
+      {error && <p className="alert-error">{error}</p>}
+      {message && <p className="alert-success">{message}</p>}
+      <div className="panel">
+        <form onSubmit={save} className="space-y-4">
+          <div>
+            <label className="label" htmlFor="profile-skills">
+              Skills
+            </label>
+            <textarea
+              id="profile-skills"
+              className="input-field min-h-[100px] resize-y"
+              value={skills}
+              onChange={(e) => setSkills(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="label" htmlFor="profile-experience">
+              Experience
+            </label>
+            <textarea
+              id="profile-experience"
+              className="input-field min-h-[100px] resize-y"
+              value={experience}
+              onChange={(e) => setExperience(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="btn-primary">
+            Save profile
+          </button>
+        </form>
+      </div>
+      <div className="panel-muted">
+        <label className="label" htmlFor="profile-resume">
+          Resume
+        </label>
         {resumeFileName && (
-          <p className="text-sm text-slate-600 mt-1">
-            Current file: <code className="bg-slate-100 px-1 rounded">{resumeFileName}</code>
+          <p className="text-sm text-fg-muted mt-1">
+            Current file:{' '}
+            <code className="rounded-md bg-raised px-2 py-0.5 font-mono text-xs text-brand-400">
+              {resumeFileName}
+            </code>
           </p>
         )}
-        <input type="file" className="mt-2 text-sm" onChange={onFile} accept=".pdf,.doc,.docx" />
+        <input
+          id="profile-resume"
+          type="file"
+          className="mt-3 block w-full text-sm text-fg-muted file:mr-3 file:rounded-full file:border-0 file:bg-raised file:px-4 file:py-2 file:text-sm file:font-medium file:text-fg hover:file:bg-border-subtle"
+          onChange={onFile}
+          accept=".pdf,.doc,.docx"
+        />
       </div>
     </div>
   )

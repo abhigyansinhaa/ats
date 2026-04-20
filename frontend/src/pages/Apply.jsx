@@ -24,21 +24,25 @@ export default function Apply() {
   }
 
   return (
-    <div className="max-w-lg mx-auto text-center">
-      <h1 className="text-2xl font-bold text-brand-900">Confirm application</h1>
-      <p className="text-slate-600 mt-2">You are applying to job #{jobId}.</p>
-      {error && (
-        <p className="mt-4 text-red-600 bg-red-50 border border-red-200 rounded-md px-3 py-2">{error}</p>
-      )}
-      {ok && <p className="mt-4 text-green-700">Application submitted. Redirecting…</p>}
-      <button
-        type="button"
-        onClick={submit}
-        disabled={submitting || ok}
-        className="mt-8 px-8 py-3 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 disabled:opacity-50"
-      >
-        {submitting ? 'Submitting…' : 'Submit application'}
-      </button>
+    <div className="max-w-lg mx-auto">
+      <div className="panel text-center">
+        <p className="font-mono text-xs uppercase tracking-widest text-brand-400">Application</p>
+        <h1 className="page-title mt-2">Confirm application</h1>
+        <p className="text-fg-muted mt-2 text-sm">
+          You are applying to job{' '}
+          <span className="font-mono text-brand-400">#{jobId}</span>.
+        </p>
+        {error && <p className="mt-4 alert-error text-left">{error}</p>}
+        {ok && <p className="mt-4 alert-success">Application submitted. Redirecting…</p>}
+        <button
+          type="button"
+          onClick={submit}
+          disabled={submitting || ok}
+          className="btn-primary mt-8 w-full sm:w-auto"
+        >
+          {submitting ? 'Submitting…' : 'Submit application'}
+        </button>
+      </div>
     </div>
   )
 }

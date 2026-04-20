@@ -15,45 +15,45 @@ export default function RecruiterDashboard() {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-between items-center gap-4">
-        <h1 className="text-2xl font-bold text-brand-900">Recruiter</h1>
-        <Link
-          to="/recruiter/jobs/new"
-          className="px-4 py-2 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700"
-        >
+      <div className="flex flex-wrap justify-between items-start gap-4">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-widest text-brand-400">Recruiter</p>
+          <h1 className="page-title mt-1">Your jobs</h1>
+          <p className="text-fg-muted text-sm mt-2 max-w-xl">
+            Post roles, edit listings, and review applicants for each opening.
+          </p>
+        </div>
+        <Link to="/recruiter/jobs/new" className="btn-primary shrink-0">
           Post new job
         </Link>
       </div>
-      {error && <p className="mt-4 text-red-600">{error}</p>}
-      <ul className="mt-6 space-y-3">
+      {error && <p className="mt-4 alert-error inline-block">{error}</p>}
+      <ul className="mt-8 space-y-3">
         {jobs.map((j) => (
           <li
             key={j.id}
-            className="border border-slate-200 rounded-lg p-4 bg-white flex flex-wrap justify-between gap-2 items-center"
+            className="panel flex flex-wrap justify-between gap-4 items-center"
           >
             <div>
-              <p className="font-semibold text-brand-900">{j.title}</p>
-              <p className="text-sm text-slate-600">
+              <p className="font-display font-semibold text-fg">{j.title}</p>
+              <p className="text-sm text-fg-muted font-mono mt-0.5">
                 {j.company} · {j.location}
               </p>
             </div>
-            <div className="flex gap-2">
-              <Link
-                to={`/recruiter/jobs/${j.id}/applicants`}
-                className="text-sm px-3 py-1.5 rounded-md border border-slate-300 hover:bg-slate-50"
-              >
+            <div className="flex flex-wrap gap-2">
+              <Link to={`/recruiter/jobs/${j.id}/applicants`} className="btn-secondary-sm">
                 Applicants
               </Link>
-              <Link
-                to={`/recruiter/jobs/${j.id}/edit`}
-                className="text-sm px-3 py-1.5 rounded-md bg-slate-800 text-white hover:bg-slate-900"
-              >
+              <Link to={`/recruiter/jobs/${j.id}/edit`} className="btn-dark">
                 Edit
               </Link>
             </div>
           </li>
         ))}
       </ul>
+      {jobs.length === 0 && !error && (
+        <p className="mt-6 text-fg-muted">No jobs posted yet. Create your first listing.</p>
+      )}
     </div>
   )
 }

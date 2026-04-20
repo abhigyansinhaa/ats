@@ -51,26 +51,30 @@ export default function RecruiterApplicants() {
 
   return (
     <div>
-      <Link to="/recruiter" className="text-sm text-brand-700 hover:underline">
+      <Link to="/recruiter" className="link-brand text-sm font-mono">
         ← Back to recruiter
       </Link>
-      <h1 className="text-2xl font-bold text-brand-900 mt-4">Applicants for job #{jobId}</h1>
-      {error && <p className="mt-2 text-red-600">{error}</p>}
-      <ul className="mt-6 space-y-4">
+      <h1 className="page-title mt-6">
+        Applicants{' '}
+        <span className="font-mono text-brand-400 text-lg font-normal">· job #{jobId}</span>
+      </h1>
+      {error && <p className="mt-4 alert-error">{error}</p>}
+      <ul className="mt-8 space-y-4">
         {applicants.map((a) => (
-          <li key={a.id} className="border border-slate-200 rounded-lg p-4 bg-white">
+          <li key={a.id} className="panel space-y-3">
             <div className="flex flex-wrap justify-between gap-2">
               <div>
-                <p className="font-medium">{a.candidateName}</p>
-                <p className="text-sm text-slate-600">{a.candidateEmail}</p>
+                <p className="font-medium text-fg">{a.candidateName}</p>
+                <p className="text-sm text-fg-muted font-mono">{a.candidateEmail}</p>
               </div>
-              <span className="text-sm px-2 py-1 rounded bg-slate-100">{a.status}</span>
+              <span className="badge">{a.status}</span>
             </div>
-            <div className="mt-3 flex flex-wrap gap-2 items-center">
+            <div className="flex flex-wrap gap-2 items-center pt-2 border-t border-border">
               <select
-                className="text-sm border border-slate-300 rounded-md px-2 py-1"
+                className="select-field text-sm py-1.5"
                 value={a.status}
                 onChange={(e) => updateStatus(a.id, e.target.value)}
+                aria-label={`Status for ${a.candidateName}`}
               >
                 {STATUSES.map((s) => (
                   <option key={s} value={s}>
@@ -81,18 +85,21 @@ export default function RecruiterApplicants() {
               <button
                 type="button"
                 onClick={() => setScheduling(scheduling === a.id ? null : a.id)}
-                className="text-sm px-3 py-1 rounded-md border border-slate-300 hover:bg-slate-50"
+                className="btn-secondary-sm"
               >
                 Schedule interview
               </button>
             </div>
             {scheduling === a.id && (
-              <div className="mt-3 flex flex-wrap gap-2 items-end">
+              <div className="flex flex-wrap gap-3 items-end pt-2">
                 <div>
-                  <label className="block text-xs text-slate-600">Date & time</label>
+                  <label className="block text-xs text-fg-muted mb-1" htmlFor={`dt-${a.id}`}>
+                    Date & time
+                  </label>
                   <input
+                    id={`dt-${a.id}`}
                     type="datetime-local"
-                    className="border border-slate-300 rounded-md px-2 py-1 text-sm"
+                    className="input-field py-2 text-sm"
                     value={when}
                     onChange={(e) => setWhen(e.target.value)}
                   />
@@ -100,7 +107,7 @@ export default function RecruiterApplicants() {
                 <button
                   type="button"
                   onClick={() => scheduleInterview(a.id)}
-                  className="text-sm px-3 py-1.5 rounded-md bg-brand-600 text-white"
+                  className="btn-primary-sm"
                 >
                   Save
                 </button>
@@ -108,7 +115,7 @@ export default function RecruiterApplicants() {
             )}
           </li>
         ))}
-        {applicants.length === 0 && <li className="text-slate-500">No applicants yet.</li>}
+        {applicants.length === 0 && <li className="text-fg-muted">No applicants yet.</li>}
       </ul>
     </div>
   )
