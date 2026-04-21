@@ -48,6 +48,9 @@ export default function Home() {
             <Link to="/register" className="btn-secondary">
               Create candidate account
             </Link>
+            <Link to="/login" className="btn-secondary">
+              Recruiter login
+            </Link>
           </div>
         </div>
       </section>
@@ -92,6 +95,9 @@ export default function Home() {
           </Link>
           <Link to="/register" className="btn-secondary">
             Create account
+          </Link>
+          <Link to="/login" className="btn-secondary">
+            Recruiter login
           </Link>
         </div>
       </section>

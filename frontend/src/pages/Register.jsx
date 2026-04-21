@@ -38,7 +38,7 @@ export default function Register() {
         <p className="font-mono text-xs uppercase tracking-widest text-brand-400">Candidate</p>
         <h1 className="page-title mt-2">Register</h1>
         <p className="text-fg-muted text-sm mt-1">
-          Recruiter and admin accounts are created by an administrator.
+          This form creates a candidate account. Recruiters and admins can sign in from the login page.
         </p>
         <form onSubmit={handleSubmit} className="mt-6 space-y-4">
           {error && <div className="alert-error">{error}</div>}
