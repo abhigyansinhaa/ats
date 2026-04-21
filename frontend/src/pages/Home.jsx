@@ -48,10 +48,16 @@ export default function Home() {
             <Link to="/register" className="btn-secondary">
               Create candidate account
             </Link>
-            <Link to="/login" className="btn-secondary">
-              Recruiter login
+            <Link to="/register?role=recruiter" className="btn-secondary">
+              Create recruiter account
             </Link>
           </div>
+          <p className="mt-4 text-sm text-fg-muted">
+            Already have an account?{' '}
+            <Link to="/login" className="link-brand">
+              Log in
+            </Link>
+          </p>
         </div>
       </section>
 
@@ -87,17 +93,20 @@ export default function Home() {
       <section className="panel text-center max-w-3xl mx-auto">
         <h2 className="font-display text-2xl font-bold text-fg">Ready to get started?</h2>
         <p className="mt-3 text-fg-muted">
-          Explore open roles or create a candidate account to apply and track your applications.
+          Candidates apply and track applications. Recruiters post jobs and review applicants.
         </p>
-        <div className="mt-8 flex flex-col sm:flex-row justify-center gap-3">
+        <div className="mt-8 flex flex-col sm:flex-row flex-wrap justify-center gap-3">
           <Link to="/jobs" className="btn-primary">
             Explore jobs
           </Link>
           <Link to="/register" className="btn-secondary">
-            Create account
+            Candidate sign up
+          </Link>
+          <Link to="/register?role=recruiter" className="btn-secondary">
+            Recruiter sign up
           </Link>
           <Link to="/login" className="btn-secondary">
-            Recruiter login
+            Log in
           </Link>
         </div>
       </section>

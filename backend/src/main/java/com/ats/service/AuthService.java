@@ -31,18 +31,26 @@ public class AuthService {
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email already registered");
         }
+
+        Role requested = request.getRole() == null ? Role.CANDIDATE : request.getRole();
+        if (requested == Role.ADMIN) {
+            throw new IllegalArgumentException("Admin accounts cannot be self-registered");
+        }
+
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.CANDIDATE)
+                .role(requested)
                 .active(true)
                 .build();
         user = userRepository.save(user);
 
-        candidateProfileRepository.save(CandidateProfile.builder()
-                .user(user)
-                .build());
+        if (requested == Role.CANDIDATE) {
+            candidateProfileRepository.save(CandidateProfile.builder()
+                    .user(user)
+                    .build());
+        }
 
         return buildAuthResponse(user);
     }

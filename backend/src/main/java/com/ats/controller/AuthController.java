@@ -18,7 +18,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    @Operation(summary = "Register as candidate")
+    @Operation(summary = "Register as candidate or recruiter (admin not allowed)")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
     }
